@@ -1,0 +1,11 @@
+/.vs
+/GS.Invoice.API/bin
+/GS.Invoice.API/obj
+/GS.Invoice.Application/bin
+/GS.Invoice.Application/obj
+/GS.Invoice.Domain/bin
+/GS.Invoice.Domain/obj
+/GS.Invoice.Infrastructure/bin
+/GS.Invoice.Infrastructure/obj
+/GS.Invoice.Tests/bin
+/GS.Invoice.Tests/obj
