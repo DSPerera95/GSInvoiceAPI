@@ -28,25 +28,18 @@ namespace GS.Invoice.Tests
             {
                 InvoiceId = Guid.NewGuid().ToString(),
                 Description = "Test Description 3",
-                TotalAmount = 300,
                 Date = DateTime.Now,
                 InvoiceItems = new List<InvoiceItem>()
                 {
                     new InvoiceItem()
                     {
-                        ItemId = 1,
-                        Amount = 100,
                         Quantity = 2,
-                        UnitPrice = 50,
-                        LineAmount = 100
+                        UnitPrice = 50
                     },
                     new InvoiceItem()
                     {
-                        ItemId = 2,
-                        Amount = 200,
                         Quantity = 1,
-                        UnitPrice = 200,
-                        LineAmount = 200
+                        UnitPrice = 200
                     }
                 }
             };
@@ -72,17 +65,13 @@ namespace GS.Invoice.Tests
             {
                 InvoiceId = new Guid("ab2bd817-98cd-4cf3-a80a-53ea0cd9c200").ToString(),
                 Description = "New Test Description",
-                TotalAmount = 300,
                 Date = DateTime.Now,
                 InvoiceItems = new List<InvoiceItem>()
                 {
                     new InvoiceItem()
                     {
-                        ItemId = 1,
-                        Amount = 5000,
                         Quantity = 4,
-                        UnitPrice = 1250,
-                        LineAmount = 5000
+                        UnitPrice = 1250
                     }
                 }
             };
@@ -99,34 +88,29 @@ namespace GS.Invoice.Tests
         }
 
 
-        //Unit test for total amount validation error
+        //Unit test for date validation error
         [Fact]
-        public async Task Add_Invoice_With_TotalAmountZero_Returns_BadRequest()
+        public async Task Add_Invoice_Without_Date_Returns_BadRequest()
         {
             // Arrange
-            var totalAamountZeroInvoice  = new InvoiceDetails()
+            var invalidDateInvoice  = new InvoiceDetails()
             {
                 InvoiceId = Guid.NewGuid().ToString(),
                 Description = "Test Description",
-                TotalAmount = 0,
-                Date = DateTime.Now,
                 InvoiceItems = new List<InvoiceItem>()
                 {
                     new InvoiceItem()
                     {
-                        ItemId = 1,
-                        Amount = 100,
                         Quantity = 1,
-                        UnitPrice = 100,
-                        LineAmount = 100
+                        UnitPrice = 100
                     }
                 }
             };
 
-            _controller.ModelState.AddModelError("TotalAmount", "Total amount should be greater than 0");
+            _controller.ModelState.AddModelError("Date", "Please enter a valid date");
            
             // Act
-            var actionResult = await _controller.CreateInvoice(totalAamountZeroInvoice);
+            var actionResult = await _controller.CreateInvoice(invalidDateInvoice);
             
             // Assert
             Assert.IsType<BadRequestObjectResult>(actionResult);
@@ -142,7 +126,6 @@ namespace GS.Invoice.Tests
             {
                 InvoiceId = Guid.NewGuid().ToString(),
                 Description = "Test Description",
-                TotalAmount = 400,
                 Date = DateTime.Now,
                 InvoiceItems = new List<InvoiceItem>()
             };

@@ -8,7 +8,6 @@ namespace GS.Invoice.Domain.Models
 {
     public class InvoiceItem
     {
-        public int ItemId { get; set; }
         public decimal Amount { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
