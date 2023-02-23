@@ -1,6 +1,5 @@
 ﻿using GS.Invoice.Application.Interfaces;
 using GS.Invoice.Domain.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GS.Invoice.API.Controllers
@@ -96,7 +95,7 @@ namespace GS.Invoice.API.Controllers
 
             if (response == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok(response);
