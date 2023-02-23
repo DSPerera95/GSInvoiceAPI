@@ -3,7 +3,6 @@ using GS.Invoice.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GS.Invoice.Tests
@@ -83,34 +82,80 @@ namespace GS.Invoice.Tests
 
             await Task.Delay(500);
             
-            var invoiceDetailList = invoiceList.FirstOrDefault(s => s.InvoiceId == invoiceDetails.InvoiceId);
+            var invoice = invoiceList.FirstOrDefault(s => s.InvoiceId == invoiceDetails.InvoiceId);
 
-            if (invoiceDetailList != null)
+            if (invoice is null)
             {
-                return invoiceDetailList;
+                return null;
             }
 
-            return new InvoiceDetails();
+            return invoice;
         }
 
-        public Task<TransactionResponse> DeleteInvoiceAsync(string InvoiceId)
+        public async Task<TransactionResponse> DeleteInvoiceAsync(string InvoiceId)
         {
-            throw new NotImplementedException();
+            await Task.Delay(500);
+
+            var invoice = invoiceList.FirstOrDefault(s => s.InvoiceId == InvoiceId);
+
+            if (invoice is null)
+            {
+                return new TransactionResponse()
+                {
+                    Success = false,
+                    Message = "Cannot find invoice with the provided inovice id"
+                };
+            }
+
+            invoiceList.Remove(invoice);
+
+            return new TransactionResponse()
+            {
+                Success = false,
+                Message = "Invoice deleted successfully!"
+            };
         }
 
-        public Task<IEnumerable<InvoiceDetails>> GetAllInvoicesAsync()
+        public async Task<IEnumerable<InvoiceDetails>> GetAllInvoicesAsync()
         {
-            throw new NotImplementedException();
+            await Task.Delay(500);
+            
+            return invoiceList;
         }
 
-        public Task<InvoiceDetails> GetInvoiceByIdAsync(string InvoiceId)
+        public async Task<InvoiceDetails> GetInvoiceByIdAsync(string InvoiceId)
         {
-            throw new NotImplementedException();
+            
+            var invoice = invoiceList.FirstOrDefault(s => s.InvoiceId == InvoiceId);
+
+            if (invoice is null)
+            {
+                return null;
+            }
+
+            await Task.Delay(500);
+            
+            return invoice;
         }
 
         public async Task<InvoiceDetails> UpdateInvoiceAsync(string InvoiceId, InvoiceDetails invoiceDetails)
         {
-            throw new NotImplementedException();
+            var existingInvoice = invoiceList.FirstOrDefault(s => s.InvoiceId == InvoiceId);
+
+            if (existingInvoice is null)
+            {
+                return null;
+            }
+
+            existingInvoice.InvoiceId = InvoiceId;
+            existingInvoice.Description = invoiceDetails.Description;
+            existingInvoice.Date = invoiceDetails.Date;
+            existingInvoice.TotalAmount = invoiceDetails.TotalAmount;
+            existingInvoice.InvoiceItems = invoiceDetails.InvoiceItems;
+
+            await Task.Delay(500);
+
+            return existingInvoice;
         }
     }
 }
