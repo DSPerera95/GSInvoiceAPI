@@ -25,7 +25,6 @@ namespace GS.Invoice.Tests
                     {
                         new InvoiceItem()
                         {
-                            ItemId = 1,
                             Quantity = 2,
                             UnitPrice = 1000,
                             Amount = 2000,
@@ -33,7 +32,6 @@ namespace GS.Invoice.Tests
                         },
                         new InvoiceItem()
                         {
-                            ItemId = 2,
                             Quantity = 1,
                             UnitPrice = 1000,
                             Amount = 1000,
@@ -51,7 +49,6 @@ namespace GS.Invoice.Tests
                     {
                         new InvoiceItem()
                         {
-                            ItemId = 1,
                             Quantity = 2,
                             UnitPrice = 2000,
                             Amount = 4000,
@@ -59,7 +56,6 @@ namespace GS.Invoice.Tests
                         },
                         new InvoiceItem()
                         {
-                            ItemId = 2,
                             Quantity = 1,
                             UnitPrice = 2000,
                             Amount = 2000,

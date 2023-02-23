@@ -8,7 +8,6 @@ namespace GS.Invoice.Domain.ModelValidators
         public InvoiceDetailValidator()
         {
             RuleFor(x => x.Date).NotNull().NotEmpty().WithMessage("Please enter a valid date");
-            RuleFor(x => x.TotalAmount).GreaterThan(0).WithMessage("Total amount should be greater than 0");
             RuleFor(x => x.InvoiceItems).Must(x => x.Count > 0).WithMessage("Please enter invoice items");
             RuleForEach(x => x.InvoiceItems).SetValidator(new InvoiceItemValidator());
 

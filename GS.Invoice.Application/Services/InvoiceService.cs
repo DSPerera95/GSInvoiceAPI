@@ -38,6 +38,14 @@ namespace GS.Invoice.Application.Services
                 invoiceDetails.InvoiceId = Guid.NewGuid().ToString();
             }
 
+            foreach(InvoiceItem invoiceItem in invoiceDetails.InvoiceItems)
+            {
+                invoiceItem.Amount = invoiceItem.Quantity * invoiceItem.UnitPrice;
+                invoiceItem.LineAmount = invoiceItem.Amount;
+            }
+
+            invoiceDetails.TotalAmount = invoiceDetails.InvoiceItems.Sum(x => x.Amount);
+
             var result = await _invoiceRepo.CreateInvoiceAsync(invoiceDetails);
 
             return result;
@@ -46,6 +54,15 @@ namespace GS.Invoice.Application.Services
 
         public async Task<InvoiceDetails> UpdateInvoiceAsync(string InvoiceId, InvoiceDetails invoiceDetails)
         {
+
+            foreach (InvoiceItem invoiceItem in invoiceDetails.InvoiceItems)
+            {
+                invoiceItem.Amount = invoiceItem.Quantity * invoiceItem.UnitPrice;
+                invoiceItem.LineAmount = invoiceItem.Amount;
+            }
+
+            invoiceDetails.TotalAmount = invoiceDetails.InvoiceItems.Sum(x => x.Amount);
+
             var result = await _invoiceRepo.UpdateInvoiceAsync(InvoiceId, invoiceDetails);
 
             return result;
